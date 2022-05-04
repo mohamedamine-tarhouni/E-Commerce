@@ -28,10 +28,14 @@
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
 						<a class="nav-link active" aria-current="page" href="#">Accueil</a>
+						{% if app.user %}
 						<a class="nav-link active" aria-current="page" href="#">Mon Panier</a>
-						<a class="nav-link active" aria-current="page" href="#">Me connecter</a>
-						<a class="nav-link active" aria-current="page" href="#">Créer un compte</a>
+						<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Déconnexion</a>
+						{% else %}
+						<a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">Me connecter</a>
+						<a class="nav-link active" aria-current="page" href="{{ path('create_user') }}">Créer un compte</a>
 						<a class="nav-link active" aria-current="page" href="#">Contactez-nous</a>
+						{% endif %} 
 					</div>
 				</div>
 			</div>

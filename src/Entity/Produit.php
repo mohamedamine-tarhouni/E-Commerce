@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -27,11 +29,19 @@ class Produit
 
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
-    private $categorie_id;
+    private $categorie;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user_id;
+    private $User;
+
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Commentaire::class)]
+    private $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,26 +96,56 @@ class Produit
         return $this;
     }
 
-    public function getCategorieId(): ?Categorie
+    public function getCategorie(): ?Categorie
     {
-        return $this->categorie_id;
+        return $this->categorie;
     }
 
-    public function setCategorieId(?Categorie $categorie_id): self
+    public function setCategorie(?Categorie $categorie): self
     {
-        $this->categorie_id = $categorie_id;
+        $this->categorie = $categorie;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->User;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $User): self
     {
-        $this->user_id = $user_id;
+        $this->User = $User;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getProduit() === $this) {
+                $commentaire->setProduit(null);
+            }
+        }
 
         return $this;
     }

@@ -18,12 +18,12 @@ class CommerceController extends AbstractController
             'categories' => $Categories,
         ]);
     }
-    #[Route('/product/{id}', name: 'product')]
-    public function show_prod(Categorie $categorie){
-        return $this-> render('commerce/detailproduct.html.twig',[
-            'categorie' => $categorie
-        ]);
-    } 
+    // #[Route('/product/{id}', name: 'product')]
+    // public function show_prod(Categorie $categorie){
+    //     return $this-> render('commerce/detailproduct.html.twig',[
+    //         'categorie' => $categorie
+    //     ]);
+    // } 
     #[Route('/commerce', name: 'app_commerce')]
     public function index(): Response
     {
