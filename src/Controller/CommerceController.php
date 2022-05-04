@@ -2,28 +2,29 @@
 
 namespace App\Controller;
 
-use App\Entity\Categorie;
-use App\Repository\CategorieRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+// use App\DataFixtures\Produit;
+use App\Entity\Produit;
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommerceController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(CategorieRepository $repo): Response
+    public function home(ProduitRepository $repo): Response
     {
-        $Categories = $repo->findAll();
+        $Product = $repo->findAll();
         return $this->render('commerce/products.html.twig', [
-            'categories' => $Categories,
+            'products' => $Product,
         ]);
     }
-    // #[Route('/product/{id}', name: 'product')]
-    // public function show_prod(Categorie $categorie){
-    //     return $this-> render('commerce/detailproduct.html.twig',[
-    //         'categorie' => $categorie
-    //     ]);
-    // } 
+    #[Route('/product/{id}', name: 'product')]
+    public function show_prod(Produit $product){
+        return $this-> render('commerce/detailproduct.html.twig',[
+            'product' => $product
+        ]);
+    } 
     #[Route('/commerce', name: 'app_commerce')]
     public function index(): Response
     {

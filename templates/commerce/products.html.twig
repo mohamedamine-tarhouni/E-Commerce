@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les categories{% endblock %}
+{% block title %}Les products{% endblock %}
 
 {% block body %}
 <section class="row articles">
-{% for categorie in categories %}
-<h1>{{ categorie.titre }}</h1>
-<a href="{{ path('product', {'id': categorie.id}) }}" class="btn btn-primary">Lire la suite</a>
+{% for product in products %}
+<h1>{{ product.nom }}</h1>
+<a href="{{ path('product', {'id': product.id}) }}" class="btn btn-primary">Lire la suite</a>
 {% endfor %}
 </section>
 {% endblock %}

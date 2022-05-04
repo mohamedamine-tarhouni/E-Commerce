@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}une categorie{% endblock %}
+{% block title %}{{ product.nom }}{% endblock %}
 
 {% block body %}
 <section class="row articles">
-<h1>{{ categorie.titre }}</h1>
+<h1>{{ product.description }}</h1>
 </section>
 {% endblock %}
