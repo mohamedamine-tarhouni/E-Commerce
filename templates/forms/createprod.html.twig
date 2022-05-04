@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h1>Création d'un article</h1>
+
+
+{{ form_start(formProduit) }}
+
+{{ form_row(formProduit.nom,{
+    label:'nom',
+    attr:{
+        placeholder:"Nom de l'article"
+    }
+}) }}
+{{ form_row(formProduit.description) }}
+{{ form_row(formProduit.prix) }}
+{{ form_row(formProduit.image) }}
+<button type="submit" class="btn btn-primary mt-2">Enregistrer</button>
+{{ form_end(formProduit) }}
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 // use App\DataFixtures\Produit;
 use App\Entity\Produit;
+use App\Form\ProductType;
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,11 +21,20 @@ class CommerceController extends AbstractController
         ]);
     }
     #[Route('/product/{id}', name: 'product')]
-    public function show_prod(Produit $product){
-        return $this-> render('commerce/detailproduct.html.twig',[
-            'product' => $product
+    public function show_prod(Produit $product)
+    {
+        return $this->render('commerce/detailproduct.html.twig', [
+            'product' => $product,
         ]);
-    } 
+    }
+    #[Route('/createprod', name: 'create_prod')]
+    public function create_prod()
+    {
+        $form = $this->createForm(ProductType::class);
+        return $this->render('forms/createprod.html.twig',[
+            'formProduit' => $form->createView()
+        ]);
+    }
     #[Route('/commerce', name: 'app_commerce')]
     public function index(): Response
     {
