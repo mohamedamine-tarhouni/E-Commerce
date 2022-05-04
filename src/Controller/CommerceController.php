@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\Entity\Produit;
 use App\Form\ProductType;
 use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,9 +30,24 @@ class CommerceController extends AbstractController
         ]);
     }
     #[Route('/createprod', name: 'create_prod')]
-    public function create_prod()
+    public function create_prod(Request $request,EntityManagerInterface $manager)
     {
-        $form = $this->createForm(ProductType::class);
+        // $session=$request->getSession();
+        // $user = $session->get()
+        $Produit=new Produit;
+        $form = $this->createForm(ProductType::class,$Produit);
+        dump($request);
+        $form->handleRequest($request);
+        dump($Produit);
+        // if($form->isSubmitted() && $form->isValid())
+        // {
+        //     $manager->persist($Produit);
+        //     $manager->flush();
+        //     return $this->redirectToRoute('product',[
+        //         'id' => $Produit->getId()
+        //     ]);
+
+        // }
         return $this->render('forms/createprod.html.twig',[
             'formProduit' => $form->createView()
         ]);
