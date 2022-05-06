@@ -38,16 +38,16 @@ class CommerceController extends AbstractController
         $form = $this->createForm(ProductType::class,$Produit);
         dump($request);
         $form->handleRequest($request);
+        $Produit->setUser($this->getUser());
         dump($Produit);
-        // if($form->isSubmitted() && $form->isValid())
-        // {
-        //     $manager->persist($Produit);
-        //     $manager->flush();
-        //     return $this->redirectToRoute('product',[
-        //         'id' => $Produit->getId()
-        //     ]);
-
-        // }
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($Produit);
+            $manager->flush();
+            return $this->redirectToRoute('product',[
+                'id' => $Produit->getId()
+            ]);
+        }
         return $this->render('forms/createprod.html.twig',[
             'formProduit' => $form->createView()
         ]);
