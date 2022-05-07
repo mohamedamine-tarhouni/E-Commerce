@@ -3,7 +3,9 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="form-group p-5">
+<div class="form-control mx-auto w-50 text-center">
+    <h1>Créer un compte</h1>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
@@ -13,6 +15,8 @@
         }) }}
         
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-dark">Register</button>
     {{ form_end(registrationForm) }}
+</div>
+</div>
 {% endblock %}

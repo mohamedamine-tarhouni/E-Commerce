@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les products{% endblock %}
+{% block title %}Les produits{% endblock %}
 
 {% block body %}
-<section class="row articles">
+<section class="row products">
 {% for product in products %}
 <h1>{{ product.nom }}</h1>
 <a href="{{ path('product', {'id': product.id}) }}" class="btn btn-primary">Lire la suite</a>
