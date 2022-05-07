@@ -5,8 +5,18 @@
 {% block body %}
 <section class="row products">
 {% for product in products %}
-<h1>{{ product.nom }}</h1>
-<a href="{{ path('product', {'id': product.id}) }}" class="btn btn-primary">Lire la suite</a>
+<div class="col-md-4">
+    <div class="card mb-3" style="width: 18rem;">
+
+        <img src="{{product.image}}" alt="Image du produit">
+        <div class="card-body">
+            <h3>{{ product.nom }}</h3>
+            <p class="card-text text-end fw-bold">{{product.prix}}
+                €</p>
+        </div>
+        <a href="{{ path('product', {'id': product.id}) }}" class="btn btn-primary">Lire la suite</a>
+    </div>
+</div>
 {% endfor %}
 </section>
 {% endblock %}
