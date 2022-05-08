@@ -7,6 +7,7 @@ use DateTime;
 use App\Entity\Produit;
 use App\Form\ProductType;
 use App\Entity\Commentaire;
+use App\Form\AjoutPanierType;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use App\Repository\ProduitRepository;
@@ -35,7 +36,7 @@ class CommerceController extends AbstractController
         EntityManagerInterface $manager,
         CommentaireRepository $repo
     ) {
-        $Commentaires=$repo->getCommentaires($product->getId());
+        $Commentaires = $repo->getCommentaires($product->getId());
         dump($Commentaires);
         dump($product->getId());
         $Commentaire = new Commentaire();
@@ -55,9 +56,47 @@ class CommerceController extends AbstractController
         return $this->render('commerce/detailproduct.html.twig', [
             'product' => $product,
             'formCommentaire' => $form->createView(),
-            'Commentaires'=> $Commentaires
+            'Commentaires' => $Commentaires
         ]);
     }
+    // #[Route('/product/{id}', name: 'product')]
+    // public function mon_panier(
+    //     Request $request,
+    //     Produit $product,
+    //     EntityManagerInterface $manager
+    // ) {
+    //     $product = new Produit();
+    //     $form = $this->createForm(AjoutPanierType::class, $product);
+    //     $form->handleRequest($request);
+    //     dump($request);
+    //     $product->setUser($this->getUser());
+    //     dump($product);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $manager->persist($product);
+    //         $manager->flush();
+    //         $this->addFlash('success', 'Ajouté au panier');
+    //         return $this->redirectToRoute('product', [
+    //             'id' => $product->getId(),
+    //         ]);
+    //     }
+    //     return $this->render('commerce/panier.html.twig', [
+    //         // 'formProduit' => $form->createView(),
+    //         'product' => $product,
+    //         'formPanier' => $form->createView(),
+    //     ]);
+    // }
+    // #[Route('/monpanier', name: 'mon_panier')]
+    // public function displayCart(
+    //     Request $request,
+    //     Produit $product,
+    //     EntityManagerInterface $manager
+    // ) {
+    //     return $this->render('commerce/panier.html.twig', [
+    //         // 'formProduit' => $form->createView(),
+
+    //     ]);
+    // }
+
     #[Route('/createprod', name: 'create_prod')]
     public function create_prod(
         Request $request,

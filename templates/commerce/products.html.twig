@@ -1,23 +1,27 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Les produits{% endblock %}
+{% block title %}Les produits
+{% endblock %}
 
 {% block body %}
-<section class="row products">
-{% for product in products %}
-<div class="col-md-4">
-    <div class="card mb-3" style="width: 18rem;">
+	<section class="row products">
+		{% for product in products %}
+			<div class="col-md-3">
+				<div class="card mb-4 border-0" style="width: 18rem;">
 
-        <img src="{{product.image}}" alt="Image du produit">
-        <div class="card-body">
-            <h3>{{ product.nom }}</h3>
-            <p class="card-text text-end fw-bold">{{product.prix}}
-                €</p>
-        </div>
-        <a href="{{ path('product', {'id': product.id}) }}" class="btn btn-primary">Lire la suite</a>
-    </div>
-</div>
-{% endfor %}
-</section>
+					<img class="mx-auto my-3 d-block" src="{{product.image}}" alt="Image du produit">
+
+					<div class="card-body">
+						<p class=" font-weight-lighter">{{ product.nom }}</p>
+						<p class="card-text">{{product.prix}}
+							€</p>
+					</div>
+					<div class="text-center">
+						<a href="{{ path('product', {'id': product.id}) }}" class="btn btn-primary btn-sm my-3">Voir le produit</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</section>
 {% endblock %}

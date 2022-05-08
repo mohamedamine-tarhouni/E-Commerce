@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}Contactez-nous
+{% endblock %}
+{% block body %}
+	<div class="form-group p-4">
+		<div class="form-control mx-auto w-50 text-center">
+			<h1>
+				Création d'un produit
+			</h1>
+			{{ form_start(formProduit) }}
+			<div class="form-row col-sm-11 col-form-label ps-5">
+				{{
+          form_row(
+            formProduit.nom,
+            {
+              label: '',
+              attr: {
+                placeholder: 'Nom du produit'
+              }
+            }
+          )
+        }}
+			</div>
+			<div class="form-row col-sm-11 col-form-label ps-5">
+				{{
+          form_row(
+            formProduit.description,
+            {
+              label: 'description',
+              attr: {
+                placeholder: 'Description'
+              }
+            }
+          )
+        }}
+			</div>
+			<div class="form-row col-sm-11 col-form-label ps-5">
+				{{
+          form_row(
+            formProduit.prix,
+            {
+              label: 'prix',
+              attr: {
+                placeholder: 'Prix du produit'
+              }
+            }
+          )
+        }}
+			</div>
+			<div class="form-row col-sm-11 col-form-label ps-5">
+				{{ form_row(formProduit.image) }}
+			</div>
+			<div class="form-row col-sm-11 col-form-label ps-5">
+				{{ form_row(formProduit.categorie) }}
+			</div>
+			<div class="p-4">
+				<button type="submit" class="btn btn-dark ">Ajouter Produit</button>
+			</div>
+			{{ form_end(formProduit) }}
+		</div>
+	</div>
+{% endblock %}

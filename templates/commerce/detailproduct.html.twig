@@ -1,39 +1,67 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-  {{ product.nom }}
+	{{ product.nom }}
 {% endblock %}
 
 {% block body %}
-  <section class="row articles">
-    <h1>
-      {{ product.description }}
-    </h1>
-    {% if app.user %}
-      {{ form_start(formCommentaire) }}
-      <div class="form-row col-sm-5 col-form-label ps-5">
-        {{
+	<section class="row articles  my-3">
+		<div style="width:50%;">
+			<img class="mx-auto my-3 d-block" style="object-fit: cover;" src="{{product.image}}" alt="Image du produit">
+		</div>
+		<div class="text-center" style="width:50%;">
+			<h1>
+				{{ product.nom }}
+			</h1>
+			<p>
+				{{ product.description }}
+			</p>
+			{# {{ form_start(formPanier) }} #}
+			<button type="submit" class=" btn btn-primary  w-75">Ajouter au panier</button>
+			{# {{ form_end(formPanier) }} #}
+		</div>
+		{% if app.user %}
+			{{ form_start(formCommentaire) }}
+			<div class="form-row  col-form-label mx-auto">
+				{{
           form_row(
             formCommentaire.contenu,
             {
-              label: 'Commentaire',
+              label: 'Laisser un commentaire',
               attr: {
                 placeholder: 'Votre Commentaire'
               }
             }
           )
         }}
-      </div>
-      <button type="submit" class="btn btn-dark">Ajouter Commentaire</button>
-      {{ form_end(formCommentaire) }}
-    {% endif %}
-    {% for comment in Commentaires %}
-      <h1>
-        {{ comment.user.username }}
-      </h1>
-      <h3>
-        {{ comment.contenu }}
-      </h3>
-    <p> Posté le {{ comment.createdAt | date('d/m/Y à H:i:s') }} </p>
-    {% endfor %}
-  </section>
+			</div>
+			<button type="submit" class="btn btn-dark">Ajouter Commentaire</button>
+			{{ form_end(formCommentaire) }}
+		{% endif %}
+		{% for comment in Commentaires %}
+			<div class="comment_container mt-4 border p-3">
+				<div style="display:flex">
+					<h5 style="margin-right: 0.5rem;">{{ comment.user.username }}</h5>
+
+					<p>
+						le
+						{{ comment.createdAt | date('d/m/Y à H:i:s') }}
+
+
+					</p>
+				</div>
+				<p>
+					{{ comment.contenu }}
+				</p>
+			</div>
+			{# <h1>
+																																																																																																																																																																{{ comment.user.username }}
+																																																																																																																																																															</h1> #}
+			{# <p>
+																																																																															Posté le
+																																																																															{{ comment.createdAt | date('d/m/Y à H:i:s') }}
+																																																																											
+																																																																											
+																																																																														</p> #}
+		{% endfor %}
+	</section>
 {% endblock %}
