@@ -46,7 +46,18 @@ class CommentaireRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function getCommentaires($id)
+    {
+        // createQueryBuilder() permet de créer une requête SQL
+        // elle prend en arg un alias qui représente la table
 
+        return $this->createQueryBuilder('a')
+                    ->andWhere('a.produit = :id')
+                    ->setParameter('id', "$id")
+                    ->orderBy('a.createdAt', 'DESC')
+                    ->getQuery()
+                    ->getResult();
+    }
     // /**
     //  * @return Commentaire[] Returns an array of Commentaire objects
     //  */

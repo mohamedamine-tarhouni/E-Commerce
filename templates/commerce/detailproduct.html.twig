@@ -1,9 +1,39 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}{{ product.nom }}{% endblock %}
+{% block title %}
+  {{ product.nom }}
+{% endblock %}
 
 {% block body %}
-<section class="row articles">
-<h1>{{ product.description }}</h1>
-</section>
+  <section class="row articles">
+    <h1>
+      {{ product.description }}
+    </h1>
+    {% if app.user %}
+      {{ form_start(formCommentaire) }}
+      <div class="form-row col-sm-5 col-form-label ps-5">
+        {{
+          form_row(
+            formCommentaire.contenu,
+            {
+              label: 'Commentaire',
+              attr: {
+                placeholder: 'Votre Commentaire'
+              }
+            }
+          )
+        }}
+      </div>
+      <button type="submit" class="btn btn-dark">Ajouter Commentaire</button>
+      {{ form_end(formCommentaire) }}
+    {% endif %}
+    {% for comment in Commentaires %}
+      <h1>
+        {{ comment.user.username }}
+      </h1>
+      <h3>
+        {{ comment.contenu }}
+      </h3>
+    <p> Posté le {{ comment.createdAt | date('d/m/Y à H:i:s') }} </p>
+    {% endfor %}
+  </section>
 {% endblock %}

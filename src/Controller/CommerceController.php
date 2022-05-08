@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 // use App\DataFixtures\Produit;
+use DateTime;
 use App\Entity\Produit;
 use App\Form\ProductType;
+use App\Entity\Commentaire;
+use App\Form\CommentaireType;
+use App\Repository\CommentaireRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,34 +26,61 @@ class CommerceController extends AbstractController
             'products' => $Product,
         ]);
     }
+    //on est dans un produit avec l'id 7
+    //findallcomments(7)
     #[Route('/product/{id}', name: 'product')]
-    public function show_prod(Produit $product)
-    {
+    public function show_prod(
+        Produit $product,
+        Request $request,
+        EntityManagerInterface $manager,
+        CommentaireRepository $repo
+    ) {
+        $Commentaires=$repo->getCommentaires($product->getId());
+        dump($Commentaires);
+        dump($product->getId());
+        $Commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $Commentaire);
+        $form->handleRequest($request);
+        $Commentaire->setUser($this->getUser());
+        $Commentaire->setCreatedAt(new DateTime());
+        $Commentaire->setproduit($product);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($Commentaire);
+            $manager->flush();
+            $this->addFlash('success', 'Commentaire correctement enregistré !');
+            return $this->redirectToRoute('product', [
+                'id' => $product->getId(),
+            ]);
+        }
         return $this->render('commerce/detailproduct.html.twig', [
             'product' => $product,
+            'formCommentaire' => $form->createView(),
+            'Commentaires'=> $Commentaires
         ]);
     }
     #[Route('/createprod', name: 'create_prod')]
-    public function create_prod(Request $request,EntityManagerInterface $manager)
-    {
+    public function create_prod(
+        Request $request,
+        EntityManagerInterface $manager
+    ) {
         // $session=$request->getSession();
         // $user = $session->get()
-        $Produit=new Produit;
-        $form = $this->createForm(ProductType::class,$Produit);
-        dump($request);
+        $Produit = new Produit();
+        $form = $this->createForm(ProductType::class, $Produit);
         $form->handleRequest($request);
+        dump($request);
         $Produit->setUser($this->getUser());
         dump($Produit);
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($Produit);
             $manager->flush();
-            return $this->redirectToRoute('product',[
-                'id' => $Produit->getId()
+            $this->addFlash('success', 'Produit correctement enregistré !');
+            return $this->redirectToRoute('product', [
+                'id' => $Produit->getId(),
             ]);
         }
-        return $this->render('forms/createprod.html.twig',[
-            'formProduit' => $form->createView()
+        return $this->render('forms/createprod.html.twig', [
+            'formProduit' => $form->createView(),
         ]);
     }
     #[Route('/commerce', name: 'app_commerce')]
