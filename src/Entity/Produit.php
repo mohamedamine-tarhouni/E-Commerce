@@ -5,9 +5,15 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+/**
+ * @Vich\Uploadable
+ */
 class Produit
 {
     #[ORM\Id]
@@ -37,6 +43,12 @@ class Produit
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Commentaire::class)]
     private $commentaires;
+
+    /**
+     * @Vich\UploadableField(mapping="products", fileNameProperty="image")
+     */
+    private $imageFile;
+
 
     public function __construct()
     {
@@ -89,10 +101,9 @@ class Produit
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image="https://picsum.photos/250?image=9"): self
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -149,4 +160,14 @@ class Produit
 
         return $this;
     }
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
 }

@@ -5,13 +5,14 @@ namespace App\Controller;
 // use App\DataFixtures\Produit;
 use DateTime;
 use App\Entity\Produit;
+use App\Form\SearchType;
 use App\Form\ProductType;
 use App\Entity\Commentaire;
 use App\Form\AjoutPanierType;
 use App\Form\CommentaireType;
-use App\Repository\CommentaireRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,11 +21,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommerceController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(ProduitRepository $repo): Response
+    public function home(ProduitRepository $repo,Request $request): Response
     {
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())    // si on a fait une recherche
+        {
+            $data = $form->get('Search')->getData();
+            $Products = $repo->getProductsByName($data);
+        }
+        else    // sinon, pas de recherche : on récupère tout
+        {
+            $Products = $repo->findAll();
+        }
         $Product = $repo->findAll();
         return $this->render('commerce/products.html.twig', [
-            'products' => $Product,
+            'products' => $Products,
+            'formRecherche' => $form->createView()
         ]);
     }
     //on est dans un produit avec l'id 7
