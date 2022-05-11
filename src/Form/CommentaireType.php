@@ -13,9 +13,6 @@ class CommentaireType extends AbstractType
     {
         $builder
             ->add('contenu')
-            // ->add('createdAt')
-            // ->add('user')
-            // ->add('produit')
         ;
     }
 

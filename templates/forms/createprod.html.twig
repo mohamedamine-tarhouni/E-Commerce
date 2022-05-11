@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %}Ajouter un produit{% endblock %}
+{% block title %}
+  Ajouter un produit
+{% endblock %}
 {% block body %}
   <div class="form-group p-4">
     <div class="form-control mx-auto w-50 text-center">
       <h1>
-        Création d'un produit
+        {% if editMode %}
+          Modification de l'article
+        {% else %}
+          Création de l'article
+        {% endif %}
       </h1>
       {{ form_start(formProduit) }}
       <div class="form-row col-sm-11 col-form-label ps-5">
@@ -53,7 +59,13 @@
         {{ form_row(formProduit.categorie) }}
       </div>
       <div class="p-4">
-        <button type="submit" class="btn btn-dark ">Ajouter Produit</button>
+        <button type="submit" class="btn btn-dark">
+          {% if editMode %}
+            Enregistrer les modifications
+          {% else %}
+            Ajouter l'article
+          {% endif %}
+        </button>
       </div>
       {{ form_end(formProduit) }}
     </div>

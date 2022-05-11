@@ -109,20 +109,20 @@ class CommerceController extends AbstractController
 
     //     ]);
     // }
-
+    
     #[Route('/createprod', name: 'create_prod')]
+    #[Route('/editprod/{id}', name: 'edit_prod')]
     public function create_prod(
         Request $request,
-        EntityManagerInterface $manager
+        EntityManagerInterface $manager,
+        Produit $Produit=null
     ) {
-        // $session=$request->getSession();
-        // $user = $session->get()
-        $Produit = new Produit();
+        if(!$Produit){
+            $Produit = new Produit();
+            $Produit->setUser($this->getUser());
+        }
         $form = $this->createForm(ProductType::class, $Produit);
         $form->handleRequest($request);
-        dump($request);
-        $Produit->setUser($this->getUser());
-        dump($Produit);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($Produit);
             $manager->flush();
@@ -133,6 +133,7 @@ class CommerceController extends AbstractController
         }
         return $this->render('forms/createprod.html.twig', [
             'formProduit' => $form->createView(),
+            'editMode'=> $Produit->getId() !== null
         ]);
     }
     #[Route('/commerce', name: 'app_commerce')]
