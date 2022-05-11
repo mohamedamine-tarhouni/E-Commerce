@@ -6,7 +6,7 @@
 
 {% block body %}
 
-{# {{ form_start(formRecherche) }}
+{{ form_start(formRecherche) }}
 
 {{ form_widget(formRecherche.Search, {
   attr: {
@@ -16,7 +16,7 @@
 
 <button type="submit" class="btn btn-primary mt-2">Rechercher</button>
 
-{{ form_end(formRecherche) }} #}
+{{ form_end(formRecherche) }}
   <section class="row products">
     {% for product in products %}
       <div class="col-md-3">
