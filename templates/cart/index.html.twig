@@ -27,17 +27,29 @@
 							</a>
 						</td>
 						<td>
-                            <a href="{{path('cart_add',{'id':item.product.id})}}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-cart-plus"></i>
-                            </a>
-                        </td>
+							<a href="{{path('cart_add',{'id':item.product.id})}}" class="btn btn-primary btn-sm">
+								<i class="fa-solid fa-cart-plus"></i>
+							</a>
+						</td>
+
+						<td>
+							<a href="{{path('cart_remove_one',{'id':item.product.id})}}" class="btn btn-primary btn-sm">
+								<i class="fa-solid fa-minus"></i>
+							</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 			<tfoot>
+
 				<tr>
 					<td colspan='3' class="text-right">Total:</td>
 					<td>{{total}}€</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="" class="btn btn-success">Vider le panier</a>
+					</td>
 				</tr>
 			</tfoot>
 		</table>
