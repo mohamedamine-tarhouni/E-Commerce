@@ -32,7 +32,7 @@ class CommerceController extends AbstractController
         }
         else    // sinon, pas de recherche : on récupère tout
         {
-            $Products = $repo->findAll();
+            $Products = $repo->getProducts();
         }
         $Product = $repo->findAll();
         return $this->render('commerce/products.html.twig', [

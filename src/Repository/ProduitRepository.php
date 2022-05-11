@@ -75,6 +75,28 @@ class ProduitRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+    public function getProducts()
+    {
+        // createQueryBuilder() permet de créer une requête SQL
+        // elle prend en arg un alias qui représente la table
+
+        return $this->createQueryBuilder('a')
+                    ->orderBy('a.nom', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+    }
+    public function getUserProducts($id)
+    {
+        // createQueryBuilder() permet de créer une requête SQL
+        // elle prend en arg un alias qui représente la table
+
+        return $this->createQueryBuilder('a')
+                    ->andWhere('a.User = :id')
+                    ->setParameter('id', $id)
+                    ->orderBy('a.nom', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Produit
     {
