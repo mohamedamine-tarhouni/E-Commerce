@@ -26,9 +26,9 @@
         {{ product.description }}
       </p>
       {# {{ form_start(formPanier) }} #}
-      <button type="submit" class="btn btn-primary w-75">
+     <a href="{{path('cart_add',{id: product.id})}}"> <button type="submit" class="btn btn-primary w-75">
         Ajouter au panier
-      </button>
+      </button></a>
       {# {{ form_end(formPanier) }} #}
     </div>
     {% if app.user %}
