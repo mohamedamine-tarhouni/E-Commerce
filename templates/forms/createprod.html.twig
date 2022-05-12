@@ -3,71 +3,83 @@
   Ajouter un produit
 {% endblock %}
 {% block body %}
-  <div class="form-group p-4">
-    <div class="form-control mx-auto w-50 text-center">
-      <h1>
-        {% if editMode %}
-          Modification de l'article
-        {% else %}
-          Création de l'article
-        {% endif %}
-      </h1>
-      {{ form_start(formProduit) }}
-      <div class="form-row col-sm-11 col-form-label ps-5">
-        {{
-          form_row(
-            formProduit.nom,
-            {
-              label: '',
-              attr: {
-                placeholder: 'Nom du produit'
-              }
-            }
-          )
-        }}
-      </div>
-      <div class="form-row col-sm-11 col-form-label ps-5">
-        {{
-          form_row(
-            formProduit.description,
-            {
-              label: 'description',
-              attr: {
-                placeholder: 'Description'
-              }
-            }
-          )
-        }}
-      </div>
-      <div class="form-row col-sm-11 col-form-label ps-5">
-        {{
-          form_row(
-            formProduit.prix,
-            {
-              label: 'prix',
-              attr: {
-                placeholder: 'Prix du produit'
-              }
-            }
-          )
-        }}
-      </div>
-      <div class="form-row col-sm-11 col-form-label ps-5">
-        {{ form_row(formProduit.imageFile) }}
-      </div>
-      <div class="form-row col-sm-11 col-form-label ps-5">
-        {{ form_row(formProduit.categorie) }}
-      </div>
-      <div class="p-4">
-        <button type="submit" class="btn btn-dark">
+  {% if productexists %}
+    <div class="form-group p-4">
+      <div class="form-control mx-auto w-50 text-center">
+        <h1>
           {% if editMode %}
-            Enregistrer les modifications
+            Modification de l'article
           {% else %}
-            Ajouter l'article
+            Création de l'article
           {% endif %}
-        </button>
+        </h1>
+        {% if editMode and editedProd.User.id == app.user.id %}
+          {{ form_start(formProduit) }}
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formProduit.nom,
+                {
+                  label: '',
+                  attr: {
+                    placeholder: 'Nom du produit'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formProduit.description,
+                {
+                  label: 'description',
+                  attr: {
+                    placeholder: 'Description'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formProduit.prix,
+                {
+                  label: 'prix',
+                  attr: {
+                    placeholder: 'Prix du produit'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{ form_row(formProduit.imageFile) }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{ form_row(formProduit.categorie) }}
+          </div>
+          <div class="p-4">
+            <button type="submit" class="btn btn-dark">
+              {% if editMode %}
+                Enregistrer les modifications
+              {% else %}
+                Ajouter l'article
+              {% endif %}
+            </button>
+          </div>
+          {{ form_end(formProduit) }}
+        {% else %}
+          <h3 style="color : red;">
+            t'as pas le droit pour modifier cet produit
+          </h3>
+        {% endif %}
       </div>
-      {{ form_end(formProduit) }}
     </div>
-  </div>
+  {% else %}
+    <h1>
+      Produit n'existe pas !!!
+    </h1>
+  {% endif %}
 {% endblock %}

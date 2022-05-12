@@ -8,6 +8,7 @@ use App\Entity\Produit;
 use App\Form\SearchType;
 use App\Form\ProductType;
 use App\Entity\Commentaire;
+use App\Entity\User;
 use App\Form\AjoutPanierType;
 use App\Form\CommentaireType;
 use App\Repository\ProduitRepository;
@@ -21,23 +22,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommerceController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(ProduitRepository $repo,Request $request): Response
+    public function home(ProduitRepository $repo, Request $request): Response
     {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())    // si on a fait une recherche
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
+            // si on a fait une recherche
             $data = $form->get('Search')->getData();
             $Products = $repo->getProductsByName($data);
         }
-        else    // sinon, pas de recherche : on récupère tout
-        {
+        // sinon, pas de recherche : on récupère tout
+        else {
             $Products = $repo->getProducts();
         }
         $Product = $repo->findAll();
         return $this->render('commerce/products.html.twig', [
             'products' => $Products,
-            'formRecherche' => $form->createView()
+            'formRecherche' => $form->createView(),
         ]);
     }
     //on est dans un produit avec l'id 7
@@ -69,57 +70,33 @@ class CommerceController extends AbstractController
         return $this->render('commerce/detailproduct.html.twig', [
             'product' => $product,
             'formCommentaire' => $form->createView(),
-            'Commentaires' => $Commentaires
+            'Commentaires' => $Commentaires,
         ]);
     }
-    // #[Route('/product/{id}', name: 'product')]
-    // public function mon_panier(
-    //     Request $request,
-    //     Produit $product,
-    //     EntityManagerInterface $manager
-    // ) {
-    //     $product = new Produit();
-    //     $form = $this->createForm(AjoutPanierType::class, $product);
-    //     $form->handleRequest($request);
-    //     dump($request);
-    //     $product->setUser($this->getUser());
-    //     dump($product);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $manager->persist($product);
-    //         $manager->flush();
-    //         $this->addFlash('success', 'Ajouté au panier');
-    //         return $this->redirectToRoute('product', [
-    //             'id' => $product->getId(),
-    //         ]);
-    //     }
-    //     return $this->render('commerce/panier.html.twig', [
-    //         // 'formProduit' => $form->createView(),
-    //         'product' => $product,
-    //         'formPanier' => $form->createView(),
-    //     ]);
-    // }
-    // #[Route('/monpanier', name: 'mon_panier')]
-    // public function displayCart(
-    //     Request $request,
-    //     Produit $product,
-    //     EntityManagerInterface $manager
-    // ) {
-    //     return $this->render('commerce/panier.html.twig', [
-    //         // 'formProduit' => $form->createView(),
 
-    //     ]);
-    // }
-    
     #[Route('/createprod', name: 'create_prod')]
     #[Route('/editprod/{id}', name: 'edit_prod')]
+    // #[ParamConverter("id", class="Produit", options={"id": "id"})]
     public function create_prod(
         Request $request,
         EntityManagerInterface $manager,
-        Produit $Produit=null
+        Produit $Produit = null,
+        ProduitRepository $rs,
+        $id
     ) {
-        if(!$Produit){
-            $Produit = new Produit();
-            $Produit->setUser($this->getUser());
+        $iseditable=false;
+        if (!$Produit) {
+            if($id == null){
+                $Produit = new Produit();
+                $Produit->setUser($this->getUser());
+            }else{
+                $testProduit[0]=0;
+            }
+            dump($id);
+        } else {
+            dump($id);
+            $testProduit = $rs->geteditedproduct($id);
+            $iseditable=true;
         }
         $form = $this->createForm(ProductType::class, $Produit);
         $form->handleRequest($request);
@@ -133,7 +110,9 @@ class CommerceController extends AbstractController
         }
         return $this->render('forms/createprod.html.twig', [
             'formProduit' => $form->createView(),
-            'editMode'=> $Produit->getId() !== null
+            'editMode' => $Produit != null and $Produit->getId() !== null ,
+            'editedProd' => $testProduit[0],
+            'productexists' => $iseditable,
         ]);
     }
     #[Route('/commerce', name: 'app_commerce')]

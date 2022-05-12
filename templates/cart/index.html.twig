@@ -48,8 +48,11 @@
 				</tr>
 				<tr>
 					<td>
-						<a href="" class="btn btn-success">Vider le panier</a>
+					<a href="{{path('clear_cart')}}" class="btn btn-success">Vider le panier</a>
 					</td>
+					<td>
+					<a href="{{ path('order') }}" class="btn btn-primary">Paiement</a>
+				  </td>
 				</tr>
 			</tfoot>
 		</table>

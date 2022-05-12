@@ -97,6 +97,19 @@ class ProduitRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+
+    public function geteditedproduct($prodid)
+    {
+        // createQueryBuilder() permet de créer une requête SQL
+        // elle prend en arg un alias qui représente la table
+
+        return $this->createQueryBuilder('a')
+                    ->andWhere('a.id= :prodid')
+                    ->setParameter('prodid', $prodid)
+                    ->orderBy('a.nom', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Produit
     {

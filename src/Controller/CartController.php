@@ -13,14 +13,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CartController extends AbstractController
 {
     #[Route('/cart', name: 'app_cart')]
-    public function index(SessionInterface $session, ProduitRepository $produitRepository)
-    {
-        $cart = $session->get('cart',[]);
+    public function index(
+        SessionInterface $session,
+        ProduitRepository $produitRepository
+    ) {
+        $cart = $session->get('cart', []);
         $cartWithData = [];
         foreach ($cart as $id => $quantity) {
             $cartWithData[] = [
                 'product' => $produitRepository->find($id),
-                'quantity' => $quantity
+                'quantity' => $quantity,
             ];
         }
         $total = 0;
@@ -31,7 +33,7 @@ class CartController extends AbstractController
         // dd($cartWithData);
         return $this->render('cart/index.html.twig', [
             'items' => $cartWithData,
-            'total' => $total
+            'total' => $total,
         ]);
     }
     #[Route('/cart/add/{id}', name: 'cart_add')]
@@ -47,7 +49,7 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
-        return $this->redirectToRoute(('app_cart'));
+        return $this->redirectToRoute('app_cart');
         //je sauvegarde l'état de mon panier à l'attr de session 'cart'
         // dd($session->get('cart'));
         //dd()=dump and die : afficher les infos tuer l'exécution du code
@@ -61,7 +63,7 @@ class CartController extends AbstractController
             unset($cart[$id]);
         }
         $session->set('cart', $cart);
-        return $this->redirectToRoute(('app_cart'));
+        return $this->redirectToRoute('app_cart');
     }
     #[Route('/cart/removeone/{id}', name: 'cart_remove_one')]
     public function remove_one($id, SessionInterface $session)
@@ -73,6 +75,24 @@ class CartController extends AbstractController
             $cart[$id]--;
         }
         $session->set('cart', $cart);
-        return $this->redirectToRoute(('app_cart'));
+        return $this->redirectToRoute('app_cart');
+    }
+    #[Route('/cart/clearcart', name: 'clear_cart')]
+    public function clear_cart(SessionInterface $session)
+    {
+        $cart = $session->get('cart', []);
+        $cart = [];
+
+        $session->set('cart', $cart);
+        return $this->redirectToRoute('app_cart');
+    }
+    #[Route('/order', name: 'order')]
+    public function order(SessionInterface $session)
+    {
+        $cart = $session->get('cart', []);
+        $cart = [];
+
+        $session->set('cart', $cart);
+        return $this->render('cart/order.html.twig');
     }
 }
