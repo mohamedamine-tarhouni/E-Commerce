@@ -13,7 +13,7 @@
             Création de l'article
           {% endif %}
         </h1>
-        {% if editMode and editedProd.User.id == app.user.id %}
+        {% if createMode or (editMode and editedProd.User.id == app.user.id) %}
           {{ form_start(formProduit) }}
           <div class="form-row col-sm-11 col-form-label ps-5">
             {{

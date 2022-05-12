@@ -82,13 +82,15 @@ class CommerceController extends AbstractController
         EntityManagerInterface $manager,
         Produit $Produit = null,
         ProduitRepository $rs,
-        $id
+        $id=null
     ) {
         $iseditable=false;
         if (!$Produit) {
             if($id == null){
                 $Produit = new Produit();
                 $Produit->setUser($this->getUser());
+                $testProduit[0]='0';
+                $iseditable=true;
             }else{
                 $testProduit[0]=0;
             }
@@ -111,6 +113,7 @@ class CommerceController extends AbstractController
         return $this->render('forms/createprod.html.twig', [
             'formProduit' => $form->createView(),
             'editMode' => $Produit != null and $Produit->getId() !== null ,
+            'createMode'=>$testProduit[0]=='0',
             'editedProd' => $testProduit[0],
             'productexists' => $iseditable,
         ]);
