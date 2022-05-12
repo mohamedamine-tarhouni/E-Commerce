@@ -4,64 +4,63 @@
 {% endblock %}
 
 {% block body %}
-	<section class="row articles my-3">
-		<div style="width:50%;">
-			{% if product.image != null %}
-				<img class="mx-auto my-3 d-block" style="object-fit: cover;width: 50%;height: 75%;" src="{{ asset('images/produits/' ~ product.image) }}" alt="Image du produit"/>
-			{% else %}
-				<img class="mx-auto my-3 d-block" style="object-fit: cover;width: 50%;height: 75%;" src="https://picsum.photos/250?image=9" alt="Image du produit"/>
-			{% endif %}
-		</div>
-		<div class="text-center" style="width:50%;">
-			<h1>
-				{{ product.nom }}
-			</h1>
-			<p>
-				{{ product.description }}
-			</p>
-			{# {{ form_start(formPanier) }} #}
-			<a href="{{path('cart_add',{id: product.id})}}">
-				<button type="submit" class="btn btn-primary w-75">
-					Ajouter au panier
-				</button>
-			</a>
-			{# {{ form_end(formPanier) }} #}
-		</div>
-		{% if app.user %}
-			{{ form_start(formCommentaire) }}
-			<div class="form-row col-form-label mx-auto">
-				{{
-          form_row(
-            formCommentaire.contenu,
-            {
-              label: 'Laisser un commentaire',
-              attr: {
-                placeholder: 'Votre Commentaire'
-              }
-            }
-          )
-        }}
-			</div>
-			<button type="submit" class="btn btn-dark">Ajouter Commentaire</button>
-			{{ form_end(formCommentaire) }}
-		{% endif %}
-		{% for comment in Commentaires %}
-			<div class="comment_container mt-4 border p-3">
-				<div style="display:flex">
-					<h5 style="margin-right: 0.5rem;">
-						{{ comment.user.username }}
-					</h5>
-
-					<p>
-						le
-						{{ comment.createdAt|date('d/m/Y à H:i:s') }}
-					</p>
+	<section class="row articles my-3">{# <div style="width:50%;">
+					{% if product.image != null %}
+						<img class="mx-auto my-3 d-block" style="object-fit: cover;width: 50%;height: 75%;" src="{{ asset('images/produits/' ~ product.image) }}" alt="Image du produit"/>
+					{% else %}
+						<img class="mx-auto my-3 d-block" style="object-fit: cover;width: 50%;height: 75%;" src="https://picsum.photos/250?image=9" alt="Image du produit"/>
+					{% endif %}
 				</div>
-				<p>
-					{{ comment.contenu }}
-				</p>
-			</div>
-		{% endfor %}
+				<div class="text-center" style="width:50%;">
+					<h1>
+						{{ product.nom }}
+					</h1>
+					<p>
+						{{ product.description }}
+					</p> #}
+		{# {{ form_start(formPanier) }} #}
+		{# <a href="{{path('cart_add',{id: product.id})}}">
+								<button type="submit" class="btn btn-primary w-75">
+									Ajouter au panier
+								</button>
+							</a> #}
+		{# {{ form_end(formPanier) }} #}
+		{# </div> #}
+		{# {% if app.user %}
+														{{ form_start(formCommentaire) }}
+														<div class="form-row col-form-label mx-auto">
+															{{
+											          form_row(
+											            formCommentaire.contenu,
+											            {
+											              label: 'Laisser un commentaire',
+											              attr: {
+											                placeholder: 'Votre Commentaire'
+											              }
+											            }
+											          )
+											        }}
+														</div>
+														<button type="submit" class="btn btn-dark">Ajouter Commentaire</button>
+														{{ form_end(formCommentaire) }}
+													{% endif %} #}
+		{# {% for comment in Commentaires %}
+												<div class="comment_container mt-4 border p-3">
+													<div style="display:flex">
+														<h5 style="margin-right: 0.5rem;">
+															{{ comment.user.username }}
+														</h5>
+									
+														<p>
+															le
+															{{ comment.createdAt|date('d/m/Y à H:i:s') }}
+														</p>
+													</div>
+													<p>
+														{{ comment.contenu }}
+													</p>
+												</div>
+											{% endfor %} #}
 	</section>
 	<div class="container-fluid py-5">
 		<div class="row px-xl-5">
@@ -93,7 +92,8 @@
 			</div>
 
 			<div class="col-lg-7 pb-5">
-				<h3 class="font-weight-semi-bold">Colorful Stylish Shirt</h3>
+				<h3 class="font-weight-semi-bold">
+					{{ product.nom }}</h3>
 				<div class="d-flex mb-3">
 					<div class="text-primary mr-2">
 						<small class="fas fa-star"></small>
@@ -105,7 +105,8 @@
 					<small class="pt-1">(50 Reviews)</small>
 				</div>
 				<h3 class="font-weight-semi-bold mb-4">$150.00</h3>
-				<p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
+				<p class="mb-4">
+					{{ product.description }}</p>
 
 				<div class="d-flex align-items-center mb-4 pt-2">
 					<div class="input-group quantity mr-3" style="width: 130px;">
@@ -137,9 +138,10 @@
 				</div>
 				<div class="tab-content">
 					<div class="tab-pane fade show active" id="tab-pane-1">
-						<h4 class="mb-3">Product Description</h4>
-						<p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-						<p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
+						<h4 class="mb-3">Description</h4>
+						<p>
+							{{ product.description }}</p>
+
 					</div>
 					<div class="tab-pane fade" id="tab-pane-2">
 						<h4 class="mb-3">Additional Information</h4>
@@ -239,4 +241,39 @@
 			</div>
 		</div>
 	</div>
+	{% if app.user %}
+		{{ form_start(formCommentaire) }}
+		<div class="form-row col-form-label mx-auto">
+			{{
+          form_row(
+            formCommentaire.contenu,
+            {
+              label: 'Laisser un commentaire',
+              attr: {
+                placeholder: 'Votre Commentaire'
+              }
+            }
+          )
+        }}
+		</div>
+		<button type="submit" class="btn btn-dark">Ajouter Commentaire</button>
+		{{ form_end(formCommentaire) }}
+	{% endif %}
+	{% for comment in Commentaires %}
+		<div class="comment_container mt-4 border p-3">
+			<div style="display:flex">
+				<h5 style="margin-right: 0.5rem;">
+					{{ comment.user.username }}
+				</h5>
+
+				<p>
+					le
+					{{ comment.createdAt|date('d/m/Y à H:i:s') }}
+				</p>
+			</div>
+			<p>
+				{{ comment.contenu }}
+			</p>
+		</div>
+	{% endfor %}
 {% endblock %}
