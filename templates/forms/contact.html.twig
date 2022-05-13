@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Ajouter un produit
+{% endblock %}
+{% block body %}
+
+    <div class="form-group p-4">
+      <div class="form-control mx-auto w-50 text-center">
+        <h1>
+            Contacter nous !!!
+        </h1>
+          {{ form_start(formContact) }}
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formContact.nom,
+                {
+                  label: '',
+                  attr: {
+                    placeholder: 'Votre nom'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formContact.prenom,
+                {
+                  label: 'prenom',
+                  attr: {
+                    placeholder: 'Votre prenom'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formContact.email,
+                {
+                  label: 'E-MAIL',
+                  attr: {
+                    placeholder: 'Votre E-MAIL'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="form-row col-sm-11 col-form-label ps-5">
+            {{
+              form_row(
+                formContact.contenu,
+                {
+                  label: 'Contenu',
+                  attr: {
+                    placeholder: 'Veuillez nous écrire'
+                  }
+                }
+              )
+            }}
+          </div>
+          <div class="p-4">
+            <button type="submit" class="btn btn-dark">
+                Envoyer
+            </button>
+          </div>
+          {{ form_end(formContact) }}
+
+      </div>
+    </div>
+
+{% endblock %}

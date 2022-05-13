@@ -4,15 +4,18 @@ namespace App\Controller;
 
 // use App\DataFixtures\Produit;
 use DateTime;
+use App\Entity\User;
+use App\Entity\Contact;
 use App\Entity\Produit;
 use App\Form\SearchType;
+use App\Form\ContactType;
 use App\Form\ProductType;
 use App\Entity\Commentaire;
-use App\Entity\User;
 use App\Form\AjoutPanierType;
 use App\Form\CommentaireType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Notification\ContactNotification;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -117,6 +120,27 @@ class CommerceController extends AbstractController
             'editedProd' => $testProduit[0],
             'productexists' => $iseditable,
         ]);
+    }
+
+    #[Route('/contact', name: 'commerce_contact')]
+    public function contact(Request $request, EntityManagerInterface $manager,ContactNotification
+    $notification): Response
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+        $contact->setCreatedAt(new DateTime());
+        if ($form->isSubmitted() && $form->isValid()) {
+        $notification->notify($contact);
+        $this->addFlash('success', 'Votre Email a bien été envoyé');
+        $manager->persist($contact); // on prépare l'insertion
+        $manager->flush(); // on execute l'insertion
+        }
+       
+        return $this->render("forms/contact.html.twig", [
+        'formContact' => $form->createView()
+        ]);
+       
     }
     #[Route('/commerce', name: 'app_commerce')]
     public function index(): Response
