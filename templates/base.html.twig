@@ -7,63 +7,176 @@
 				Welcome!
 			{% endblock %}
 		</title>
-		<link
-		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"/>
+		{# <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css"> #}
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"/>
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		{# <link rel="stylesheet" type="text/css" href="css/newstyle.css"> #}
+		<link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"/> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
-		
-		{% block stylesheets %}
+		{# <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/> #}
+
+		{# <link rel="stylesheet" type="text/css" href="css/black.css"> #}
+			{% block stylesheets %}
+
 			{{ encore_entry_link_tags('app') }}
+		<link
+			rel="stylesheet" type="text/css" href="css/newstyle.css"> {# <link rel="stylesheet" type="text/css" href="css/util.css">	<link rel="stylesheet" type="text/css" href="css/main.css">
+																																																																																																																																																																																																																																																	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/> #}
+
 		{% endblock %}
 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">E-Commerce</a>
-				<div class=" navbar-collapse" id="navbarNavAltMarkup">
-					<div class="navbar-nav">
-						<a class="nav-link active btn-primary " aria-current="page" href="{{ path('home') }}">
-							Accueil
-						</a>
-						{% if app.user %}
-							<a class="nav-link active btn-info" aria-current="page" href="{{ path('app_cart') }}">
-								Mon Panier
+
+	{# <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+																																			
+																																					<div class="container-fluid">
+																																						<a class="navbar-brand" href="#">E-Commerce</a>
+																																						<div class=" navbar-collapse" id="navbarNavAltMarkup">
+																																							<div class="navbar-nav">
+																																								<a class="nav-link active btn-primary " aria-current="page" href="{{ path('home') }}">
+																																									Accueil
+																																								</a>
+																																								{% if app.user %}
+																																									<a class="nav-link active btn-info" aria-current="page" href="{{ path('app_cart') }}">
+																																										Mon Panier
+																																									</a>
+																																									<a class="nav-link active btn-success" aria-current="page" href="{{ path('create_prod') }}">
+																																										Créer Produit
+																																									</a>
+																																									<a class="nav-link active btn-warning" aria-current="page" href="#">
+																																										Contactez-nous
+																																									</a>
+																																									<a class="nav-link active btn-danger" aria-current="page" href="{{ path('app_logout') }}">
+																																										Déconnexion
+																																									</a>
+																																									<div class="d-flex justify-content-end">
+																																										<a class="nav-link active btn-warning d-flex justify-content-end" aria-current="page" href="{{ path('user_created_products') }}">
+																																											Mes Produits
+																																										</a>
+																																									</div>
+																																								{% else %}
+																																									<a class="nav-link active btn-link" aria-current="page" href="{{ path('app_login') }}">
+																																										Me connecter
+																																									</a>
+																																									<a class="nav-link active btn-link" aria-current="page" href="{{ path('create_user') }}">
+																																										Créer un compte
+																																									</a>
+																																								{% endif %}
+																																							</div>
+																																						</div>
+																																					</div>
+																																				</nav> #}
+
+	<!-- Navbar -->
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light">
+		<!-- Container wrapper -->
+		<div
+			class="container-fluid">
+			<!-- Toggle button -->
+			<button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fas fa-bars"></i>
+			</button>
+
+			<!-- Collapsible wrapper -->
+			<div
+				class="collapse navbar-collapse" id="navbarSupportedContent">
+				<!-- Navbar brand -->
+				<a class="navbar-brand mt-2 mt-lg-0" href="{{path('home')}}">Accueil
+					{# <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="15" alt="MDB Logo" loading="lazy"/> #}
+				</a>
+				<!-- Left links -->
+				{# <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+																																																																									<li class="nav-item">
+																																																																										<a class="nav-link" href="#">Contactez-nous</a>
+																																																																									</li>
+																																																																									<li class="nav-item">
+																																																																										<a class="nav-link" href="#">Team</a>
+																																																																									</li>
+																																																																									<li class="nav-item">
+																																																																										<a class="nav-link" href="#">Projects</a>
+																																																																									</li>
+																																																																								</ul> #}
+				<!-- Left links -->
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0"> {% if app.user %}
+						{# <li class="nav-item">
+																																																	<a class="nav-link" aria-current="page" href="{{ path('app_cart') }}">
+																																																		Mon Panier
+																																																	</a>
+																																																</li> #}
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="{{ path('create_prod') }}">
+								Créer Produit</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="{{ path('commerce_contact') }}">
+								Contactez-nous</a>
+						</li>
+						{# <li class="nav-item">
+																									<a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">
+																										Déconnexion
+																									</a>
+																								</li> #}
+
+						<div class="d-flex justify-content-end">
+							<a class="nav-link" aria-current="page" href="{{ path('user_created_products') }}">
+								Mes Produits
 							</a>
-							<a class="nav-link active btn-success" aria-current="page" href="{{ path('create_prod') }}">
-								Créer Produit
-							</a>
-							<a class="nav-link active btn-warning" aria-current="page" href="#">
-								Contactez-nous
-							</a>
-							<a class="nav-link active btn-danger" aria-current="page" href="{{ path('app_logout') }}">
-								Déconnexion
-							</a>
-							<div class="d-flex justify-content-end">
-								<a class="nav-link active btn-warning d-flex justify-content-end" aria-current="page" href="{{ path('user_created_products') }}">
-									Mes Produits
-								</a>
-							</div>
-						{% else %}
-							<a class="nav-link active btn-link" aria-current="page" href="{{ path('app_login') }}">
-								Me connecter
-							</a>
-							<a class="nav-link active btn-link" aria-current="page" href="{{ path('create_user') }}">
+						</div>
+
+					{% else %}
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="{{ path('app_login') }}">
+								Me connecter</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="{{ path('create_user') }}">
 								Créer un compte
 							</a>
-						{% endif %}
-					</div>
-				</div>
+						</li>
+					{% endif %}
+				</ul>
 			</div>
-		</nav>
-		<div class="container"> {% block body %}{% endblock %}
-			</div>
+			<!-- Collapsible wrapper -->
 
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-		</body>
-	</html>
+			<!-- Right elements -->
+			{% if app.user %}
+				<div
+					class="d-flex align-items-center">
+					<!-- Icon -->
+					<a class="text-reset me-3" href="{{ path('app_cart') }}">
+						<i class="fas fa-shopping-cart"></i>
+					</a>
+					<a class="text-reset me-3" href="{{ path('app_logout') }}">
+				<i class="fa-solid fa-right-from-bracket"></i>
+					</a>
+
+					<!-- Notifications -->
+
+					<!-- Avatar -->
+					{# <div class="dropdown">
+						<a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="{{ path('app_logout') }}" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+							<img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy"/>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+							<li>
+								<a class="dropdown-item" href="#">Mes produits</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">Déconnexion</a>
+							</li>
+
+						</ul>
+					</div> #}
+				{% endif %}
+			</div>
+			<!-- Right elements -->
+		</div>
+		<!-- Container wrapper -->
+	</nav>
+	{% block body %}{% endblock %}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html></html>

@@ -6,80 +6,85 @@
 
 {% block body %}
 
-	{{ form_start(formRecherche) }}
+	<div class="container">
+		{{ form_start(formRecherche) }}
 
-	{{ form_widget(formRecherche.Search, {
+		{{ form_widget(formRecherche.Search, {
   attr: {
     placeholder: "Rechercher un article"
   }
 }) }}
 
-	<button type="submit" class="btn btn-primary mt-2">Rechercher</button>
+		<button type="submit" class="btn btn-primary mt-2">Rechercher</button>
 
-	{{ form_end(formRecherche) }}
-	<section class="row products">
-		{% for product in products %}
-			<div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-				<div class="card product-item border-0 mb-4">
-					<div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						{# <img class="img-fluid w-100" src="https://picsum.photos/250?image=9" alt=""> #}
-						{% if product.image != null %}
-							<img class="img-fluid w-100" src="{{ asset('images/produits/' ~ product.image) }}" alt="">
-						{% else %}
-							<img class="img-fluid w-100" src="https://picsum.photos/250?image=9" alt="">
-						{% endif %}
-					</div>
-					<div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-						<h6 class="text-truncate mb-3">
-							{{ product.nom }}</h6>
-						<div class="d-flex justify-content-center">
-							<h6>
-								{{ product.prix }}</h6>
-							<h6 class="text-muted ml-2">
-								<del>
-									{{ product.prix }}</del>
-							</h6>
+		{{ form_end(formRecherche) }}
+
+		<section class="row products">
+			{% for product in products %}
+				<div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+					<div class="card product-item border-0 mb-4">
+						<div
+							class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+							{# <img class="img-fluid w-100" src="https://picsum.photos/250?image=9" alt=""> #}
+							{% if product.image != null %}
+								<img class="img-fluid w-100" src="{{ asset('images/produits/' ~ product.image) }}" alt="">
+							{% else %}
+								<img class="img-fluid w-100" src="https://picsum.photos/250?image=9" alt="">
+							{% endif %}
+						</div>
+						<div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+							<h6 class="text-truncate mb-3">
+								{{ product.nom }}</h6>
+							<div class="d-flex justify-content-center">
+								<h6>
+									{{ product.prix }}</h6>
+								<h6 class="text-muted ml-2">
+									<del>
+										{{ product.prix }}</del>
+								</h6>
+							</div>
+						</div>
+						<div class="card-footer d-flex justify-content-between bg-light border">
+							{# <a href="" class="btn btn-sm text-dark p-0">
+																																														<i class="fas fa-eye text-primary mr-1"></i> #}
+							{# <a href="{{ path( 'product', { id: product.id } ) }}">
+																																																						Voir le produit
+																																																					</a> #}
+								<a href="{{ path( 'product', { id: product.id } ) }}" class="btn btn-sm text-dark p-0"> <i class="fas fa-eye text-primary mr-1"></i>Voir les détails</a>
+							{% if app.user %}
+								<a href="{{path('cart_add',{id: product.id})}}" class="btn btn-sm text-dark p-0">
+									<i class="fas fa-shopping-cart text-primary mr-1"></i>Ajouter au panier</a>
+							{% endif %}
 						</div>
 					</div>
-					<div class="card-footer d-flex justify-content-between bg-light border">
-						{# <a href="" class="btn btn-sm text-dark p-0">
-																			<i class="fas fa-eye text-primary mr-1"></i> #}
-						{# <a href="{{ path( 'product', { id: product.id } ) }}">
-																											Voir le produit
-																										</a> #}
-							<a href="{{ path( 'product', { id: product.id } ) }}" class="btn btn-sm text-dark p-0"> <i class="fas fa-eye text-primary mr-1"></i>Voir les détails</a>
-						<a href="" class="btn btn-sm text-dark p-0">
-							<i class="fas fa-shopping-cart text-primary mr-1"></i>Ajouter au panier</a>
-					</div>
 				</div>
-			</div>
-		{% endfor %}
-		{# <div class="col-md-3">
-																						<div class="card mb-4 border-0" style="width: 18rem;">
-																							{% if product.image != null %}
-																								<img class="mx-auto my-3 d-block" src="{{ asset('images/produits/' ~ product.image) }}" alt="Image du produit" style="width: 50%;height: 50%;"/>
-																							{% else %}
-																								<img class="mx-auto my-3 d-block" style="object-fit: cover;width: 50%;height: 50%;" src="https://picsum.photos/250?image=9" alt="Image du produit"/>
-																							{% endif %}
-																							<div class="card-body">
-																								<p class="font-weight-lighter">
-																									{{ product.nom }}
-																								</p>
-																								<p class="card-text">
-																									{{ product.prix }}
-																									€
-																								</p>
-																							</div>
-																							<div class="text-center">
-																								<a href="{{ path( 'product', { id: product.id } ) }}" class="btn btn-primary btn-sm my-3">
-																									Voir le produit
-																								</a>
-																							</div>
-																						</div>
-																					</div> #}
+			{% endfor %}
+			{# <div class="col-md-3">
+																																	<div class="card mb-4 border-0" style="width: 18rem;">
+																																		{% if product.image != null %}
+																																			<img class="mx-auto my-3 d-block" src="{{ asset('images/produits/' ~ product.image) }}" alt="Image du produit" style="width: 50%;height: 50%;"/>
+																																		{% else %}
+																																			<img class="mx-auto my-3 d-block" style="object-fit: cover;width: 50%;height: 50%;" src="https://picsum.photos/250?image=9" alt="Image du produit"/>
+																																		{% endif %}
+																																		<div class="card-body">
+																																			<p class="font-weight-lighter">
+																																				{{ product.nom }}
+																																			</p>
+																																			<p class="card-text">
+																																				{{ product.prix }}
+																																				€
+																																			</p>
+																																		</div>
+																																		<div class="text-center">
+																																			<a href="{{ path( 'product', { id: product.id } ) }}" class="btn btn-primary btn-sm my-3">
+																																				Voir le produit
+																																			</a>
+																																		</div>
+																																	</div>
+																																</div> #}
 
 
-	</section>
+		</section>
 
-
+	</div>
 {% endblock %}
