@@ -97,7 +97,6 @@ class ProduitRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
-
     public function geteditedproduct($prodid)
     {
         // createQueryBuilder() permet de créer une requête SQL

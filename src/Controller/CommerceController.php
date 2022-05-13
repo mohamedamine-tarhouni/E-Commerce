@@ -54,8 +54,6 @@ class CommerceController extends AbstractController
         CommentaireRepository $repo
     ) {
         $Commentaires = $repo->getCommentaires($product->getId());
-        dump($Commentaires);
-        dump($product->getId());
         $Commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $Commentaire);
         $form->handleRequest($request);
