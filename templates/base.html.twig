@@ -127,6 +127,12 @@
 							</a>
 						</div>
 
+						{% if is_granted('ROLE_ADMIN') %}
+						<div class="d-flex justify-content-end">
+							<a class="nav-link" href="{{ path('easyadmin') }}">BackOffice</a>
+						</div>
+						{% endif %}
+
 					{% else %}
 						<li class="nav-item">
 							<a class="nav-link" aria-current="page" href="{{ path('app_login') }}">
